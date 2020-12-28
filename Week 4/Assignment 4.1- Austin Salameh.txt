@@ -1,0 +1,55 @@
+SELECT e.ename, e.hiredate
+FROM emp e join emp kent
+ON (kent.ename = 'KENT')
+WHERE kent.hiredate>e.hiredate;
+
+SELECT ROUND(MAX(sal)) "Maximum",
+ROUND(MIN(sal)) "Minimum",
+ROUND(SUM(sal)) "Sum",
+ROUND(AVG(sal)) "Average"
+FROM emp;
+
+SELECT job, ROUND(MAX(sal)) "Maximum",
+ROUND(MIN(sal)) "Minimum",
+ROUND(SUM(sal)) "Sum",
+ROUND(AVG(sal)) "Average"
+FROM emp
+GROUP BY job;
+
+SELECT job, count(job)
+FROM emp
+GROUP BY job;
+
+SELECT count(*) "Number of Managers"
+FROM emp
+WHERE mgr = 7839;
+
+SELECT MAX(sal) - MIN(sal) "Pay Gap"
+FROM EMP;
+
+SELECT mgr, MIN(sal) 
+FROM EMP
+WHERE mgr IS NOT NULL
+GROUP BY mgr 
+HAVING MIN(sal) >1400
+ORDER BY MIN (sal) DESC;
+
+SELECT d.dname as DName, d.loc as Loc, count(e.deptno)as "Number of people", round(avg(e.sal),2) as "Salary" 
+FROM dept d, emp e 
+WHERE d.deptno = e.deptno 
+GROUP BY d.dname, d.loc, e.deptno;
+
+SELECT count(*) "Total Employees",  
+count(decode(to_char(hiredate,'YYYY'),'1980',hiredate) ) "1980" ,  
+count(decode(to_char(hiredate,'YYYY'),'1981',hiredate) ) "1981" , 
+count(decode(to_char(hiredate,'YYYY'),'1982',hiredate) ) "1982" ,
+count(decode(to_char(hiredate,'YYYY'),'1983',hiredate) ) "1983"  
+FROM emp ;
+
+SELECT distinct job,
+sum(decode(deptno,10,sal)) "Dept 10",
+sum(decode(deptno,20,sal))"Dept 20",
+sum(decode(deptno,30,sal)) "Dept 30",
+sum(sal) "Total"
+FROM emp
+GROUP BY job;
